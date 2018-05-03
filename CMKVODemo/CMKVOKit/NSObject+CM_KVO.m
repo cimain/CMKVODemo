@@ -18,10 +18,11 @@ static NSString * const kCMkvoAssiociateObserver = @"CMAssiociateObserver";
 
 @property (nonatomic, weak) NSObject * observer;
 @property (nonatomic, copy) NSString * key;
+
+//@property (nonatomic, copy) CM_ObservingHandler handleBlock;
 @property (nonatomic, assign) id <ObserverDelegate> observerDelegate;
 
 @end
-
 
 
 @implementation CM_ObserverInfo
@@ -38,25 +39,6 @@ static NSString * const kCMkvoAssiociateObserver = @"CMAssiociateObserver";
 }
 
 @end
-
-
-
-//#pragma mark -- Debug Method
-//static NSArray * ClassMethodsName(Class class)
-//{
-//    NSMutableArray * methodsArr = [NSMutableArray array];
-//    
-//    unsigned methodCount = 0;
-//    Method * methodList = class_copyMethodList(class, &methodCount);
-//    for (int i = 0; i < methodCount; i++) {
-//        
-//        [methodsArr addObject: NSStringFromSelector(method_getName(methodList[i]))];
-//    }
-//    free(methodList);
-//    
-//    return methodsArr;
-//}
-
 
 
 #pragma mark -- Transform setter or getter to each other Methods
@@ -226,6 +208,22 @@ static Class kvo_Class(id self)
     free(methodList);
     return NO;
 }
+
+#pragma mark -- Debug Method
+//static NSArray * ClassMethodsName(Class class)
+//{
+//    NSMutableArray * methodsArr = [NSMutableArray array];
+//
+//    unsigned methodCount = 0;
+//    Method * methodList = class_copyMethodList(class, &methodCount);
+//    for (int i = 0; i < methodCount; i++) {
+//
+//        [methodsArr addObject: NSStringFromSelector(method_getName(methodList[i]))];
+//    }
+//    free(methodList);
+//
+//    return methodsArr;
+//}
 
 
 @end
