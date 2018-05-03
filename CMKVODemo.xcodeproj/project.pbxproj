@@ -15,6 +15,8 @@
 		F7B41E932088A19600D6C2CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B41E922088A19600D6C2CE /* main.m */; };
 		F7B41E9D2088A19600D6C2CE /* CMKVODemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B41E9C2088A19600D6C2CE /* CMKVODemoTests.m */; };
 		F7B41EA82088A19600D6C2CE /* CMKVODemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B41EA72088A19600D6C2CE /* CMKVODemoUITests.m */; };
+		F7B41EB82088A1C000D6C2CE /* NSObject+CM_KVO.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B41EB62088A1C000D6C2CE /* NSObject+CM_KVO.m */; };
+		F7B41EBB2088A1D200D6C2CE /* ObservedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B41EBA2088A1D200D6C2CE /* ObservedObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,10 @@
 		F7B41EA32088A19600D6C2CE /* CMKVODemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CMKVODemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7B41EA72088A19600D6C2CE /* CMKVODemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMKVODemoUITests.m; sourceTree = "<group>"; };
 		F7B41EA92088A19600D6C2CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F7B41EB62088A1C000D6C2CE /* NSObject+CM_KVO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+CM_KVO.m"; sourceTree = "<group>"; };
+		F7B41EB72088A1C000D6C2CE /* NSObject+CM_KVO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+CM_KVO.h"; sourceTree = "<group>"; };
+		F7B41EB92088A1D200D6C2CE /* ObservedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObservedObject.h; sourceTree = "<group>"; };
+		F7B41EBA2088A1D200D6C2CE /* ObservedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObservedObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +107,13 @@
 		F7B41E822088A19600D6C2CE /* CMKVODemo */ = {
 			isa = PBXGroup;
 			children = (
+				F7B41EB52088A1A300D6C2CE /* CMKVOKit */,
 				F7B41E832088A19600D6C2CE /* AppDelegate.h */,
 				F7B41E842088A19600D6C2CE /* AppDelegate.m */,
 				F7B41E862088A19600D6C2CE /* ViewController.h */,
 				F7B41E872088A19600D6C2CE /* ViewController.m */,
+				F7B41EB92088A1D200D6C2CE /* ObservedObject.h */,
+				F7B41EBA2088A1D200D6C2CE /* ObservedObject.m */,
 				F7B41E892088A19600D6C2CE /* Main.storyboard */,
 				F7B41E8C2088A19600D6C2CE /* Assets.xcassets */,
 				F7B41E8E2088A19600D6C2CE /* LaunchScreen.storyboard */,
@@ -130,6 +139,15 @@
 				F7B41EA92088A19600D6C2CE /* Info.plist */,
 			);
 			path = CMKVODemoUITests;
+			sourceTree = "<group>";
+		};
+		F7B41EB52088A1A300D6C2CE /* CMKVOKit */ = {
+			isa = PBXGroup;
+			children = (
+				F7B41EB72088A1C000D6C2CE /* NSObject+CM_KVO.h */,
+				F7B41EB62088A1C000D6C2CE /* NSObject+CM_KVO.m */,
+			);
+			path = CMKVOKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,6 +285,8 @@
 			files = (
 				F7B41E882088A19600D6C2CE /* ViewController.m in Sources */,
 				F7B41E932088A19600D6C2CE /* main.m in Sources */,
+				F7B41EBB2088A1D200D6C2CE /* ObservedObject.m in Sources */,
+				F7B41EB82088A1C000D6C2CE /* NSObject+CM_KVO.m in Sources */,
 				F7B41E852088A19600D6C2CE /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

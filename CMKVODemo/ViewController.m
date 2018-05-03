@@ -8,6 +8,10 @@
 
 #import "ViewController.h"
 
+#import "ViewController.h"
+#import "NSObject+CM_KVO.h"
+#import "ObservedObject.h"
+
 @interface ViewController ()
 
 @end
@@ -16,7 +20,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    ObservedObject * object = [ObservedObject new];
+    object.observedNum = @8;
+    [object CM_addObserver: self forKey: @"observedNum"];
+    object.observedNum = @10;
+}
+
+#pragma mark - ObserverDelegate
+-(void)CM_ObserveValueForKeyPath:(NSString *)keyPath ofObject:(id)object oldValue:(id)oldValue newValue:(id)newValue{
+    NSLog(@"%@", [NSString stringWithFormat:@"%@,%@",oldValue,newValue]);
 }
 
 
@@ -24,6 +37,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end
