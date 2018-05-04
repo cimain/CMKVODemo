@@ -1,5 +1,5 @@
 //
-//  NSObject+CM_KVO.h
+//  NSObject+Delegate_KVO.h
 //  CM_KeyValueObserveDemo
 //
 
@@ -9,8 +9,6 @@
 
 
 #import <Foundation/Foundation.h>
-
-//typedef void (^CM_ObservingHandler) (id observedObject, NSString * observedKey, id oldValue, id newValue);
 
 @protocol ObserverDelegate<NSObject>
 
@@ -26,7 +24,7 @@
 
 @end
 
-@interface NSObject (CM_KVO)<ObserverDelegate>
+@interface NSObject (Delegate_KVO)<ObserverDelegate>
 
 /**
  *  method stead of traditional addObserver API

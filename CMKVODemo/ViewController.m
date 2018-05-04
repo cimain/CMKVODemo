@@ -7,10 +7,11 @@
 //
 
 #import "ViewController.h"
-
-#import "ViewController.h"
-#import "NSObject+CM_KVO.h"
 #import "ObservedObject.h"
+
+#import "NSObject+Delegate_KVO.h"
+#import "NSObject+Block_KVO.h"
+
 
 @interface ViewController ()
 
@@ -22,16 +23,27 @@
     [super viewDidLoad];
     
     ObservedObject * object = [ObservedObject new];
-    object.observedNum = @8;
-    [object CM_addObserver: self forKey: @"observedNum"];
-    object.observedNum = @10;
+    object.observedNum = @111;
+    
+#pragma mark - Observed By Delegate
+//    [object CM_addObserver: self forKey: @"observedNum"];
+    
+#pragma mark - Observed By Block
+    [object CM_addObserver: self forKey: @"observedNum" withBlock: ^(id observedObject, NSString *observedKey, id oldValue, id newValue) {
+        NSLog(@"Value had changed yet with observing Block");
+        NSLog(@"oldValue---%@",oldValue);
+        NSLog(@"newValue---%@",newValue);
+    }];
+    
+    object.observedNum = @888;
 }
 
 #pragma mark - ObserverDelegate
 -(void)CM_ObserveValueForKeyPath:(NSString *)keyPath ofObject:(id)object oldValue:(id)oldValue newValue:(id)newValue{
-    NSLog(@"%@", [NSString stringWithFormat:@"%@,%@",oldValue,newValue]);
+    NSLog(@"Value had changed yet with observing Delegate");
+    NSLog(@"oldValue---%@",oldValue);
+    NSLog(@"newValue---%@",newValue);
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
