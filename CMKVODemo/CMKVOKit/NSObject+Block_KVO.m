@@ -14,7 +14,7 @@
 static NSString * const kCMkvoClassPrefix_for_Block = @"CMObserver_";
 static NSString * const kCMkvoAssiociateObserver_for_Block = @"CMAssiociateObserver";
 
-@interface CMCM_ObserverInfo_for_Block : NSObject
+@interface CM_ObserverInfo_for_Block : NSObject
 
 @property (nonatomic, weak) NSObject * observer;
 @property (nonatomic, copy) NSString * key;
@@ -23,7 +23,7 @@ static NSString * const kCMkvoAssiociateObserver_for_Block = @"CMAssiociateObser
 @end
 
 
-@implementation CMCM_ObserverInfo_for_Block
+@implementation CM_ObserverInfo_for_Block
 
 - (instancetype)initWithObserver: (NSObject *)observer forKey: (NSString *)key observeHandler: (CM_ObservingHandler)handler
 {
@@ -90,7 +90,7 @@ static void KVO_setter(id self, SEL _cmd, id newValue)
     
     //获取所有监听回调对象进行回调
     NSMutableArray * observers = objc_getAssociatedObject(self, (__bridge const void *)kCMkvoAssiociateObserver_for_Block);
-    for (CMCM_ObserverInfo_for_Block * info in observers) {
+    for (CM_ObserverInfo_for_Block * info in observers) {
         if ([info.key isEqualToString: getterName]) {
             dispatch_async(dispatch_queue_create(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 info.handler(self, getterName, oldValue, newValue);
@@ -119,25 +119,32 @@ static Class kvo_Class(id self)
         @throw [NSException exceptionWithName: NSInvalidArgumentException reason: [NSString stringWithFormat: @"unrecognized selector sent to instance %@", self] userInfo: nil];
         return;
     }
+    
+    //自己的类作为被观察者类
     Class observedClass = object_getClass(self);
     NSString * className = NSStringFromClass(observedClass);
     
     //如果被监听者没有CMObserver_，那么判断是否需要创建新类
     if (![className hasPrefix: kCMkvoClassPrefix_for_Block]) {
+        //【代码①】
         observedClass = [self createKVOClassWithOriginalClassName: className];
+        //【API注解①】
         object_setClass(self, observedClass);
     }
-    
     
     //add kvo setter method if its class(or superclass)hasn't implement setter
     if (![self hasSelector: setterSelector]) {
         const char * types = method_getTypeEncoding(setterMethod);
+        //【代码②】
         class_addMethod(observedClass, setterSelector, (IMP)KVO_setter, types);
     }
     
     
     //add this observation info to saved new observer
-    CMCM_ObserverInfo_for_Block * newInfo = [[CMCM_ObserverInfo_for_Block alloc] initWithObserver: observer forKey: key observeHandler: observedHandler];
+    //【代码③】
+    CM_ObserverInfo_for_Block * newInfo = [[CM_ObserverInfo_for_Block alloc] initWithObserver: observer forKey: key observeHandler: observedHandler];
+    
+    //【代码④】【API注解③】
     NSMutableArray * observers = objc_getAssociatedObject(self, (__bridge void *)kCMkvoAssiociateObserver_for_Block);
     
     if (!observers) {
@@ -152,8 +159,8 @@ static Class kvo_Class(id self)
 {
     NSMutableArray * observers = objc_getAssociatedObject(self, (__bridge void *)kCMkvoAssiociateObserver_for_Block);
     
-    CMCM_ObserverInfo_for_Block * observerRemoved = nil;
-    for (CMCM_ObserverInfo_for_Block * observerInfo in observers) {
+    CM_ObserverInfo_for_Block * observerRemoved = nil;
+    for (CM_ObserverInfo_for_Block * observerInfo in observers) {
         
         if (observerInfo.observer == object && [observerInfo.key isEqualToString: key]) {
             

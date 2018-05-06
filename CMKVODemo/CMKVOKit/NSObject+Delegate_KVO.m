@@ -176,6 +176,7 @@ static Class kvo_Class(id self)
     
     //创建新类，并且添加CMObserver_为类名新前缀
     Class originalClass = object_getClass(self);
+    //【API注解②】
     Class kvoClass = objc_allocateClassPair(originalClass, kvoClassName.UTF8String, 0);
     
     //获取监听对象的class方法实现代码，然后替换新建类的class实现
